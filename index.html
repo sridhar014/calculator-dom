@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<script>
+
+document.body.style.display = "flex";
+document.body.style.justifyContent = "center";
+document.body.style.alignItems = "center";
+document.body.style.height = "100vh";
+document.body.style.backgroundColor = "#f0f0f0";
+
+// Create the calculator container
+const calculator = document.createElement("div");
+calculator.style.width = "300px";
+calculator.style.padding = "20px";
+calculator.style.border = "1px solid #333";
+calculator.style.borderRadius = "10px";
+calculator.style.boxShadow = "0px 0px 20px rgba(0, 0, 0, 0.2)";
+calculator.style.backgroundColor = "orange";
+calculator.style.display = "flex";
+calculator.style.flexDirection = "column";
+calculator.style.alignItems = "center";
+document.body.appendChild(calculator);
+
+// Create the display for the calculator
+const display = document.createElement("input");
+display.type = "text";
+display.disabled = true;
+display.style.width = "100%";
+display.style.height = "50px";
+display.style.fontSize = "24px";
+display.style.textAlign = "right";
+display.style.marginBottom = "10px";
+calculator.appendChild(display);
+
+// Array of button values
+const buttons = [
+  "7", "8", "9", "/",
+  "4", "5", "6", "*",
+  "1", "2", "3", "-",
+  "0", ".", "=", "+"
+];
+
+// Create a container for the buttons
+const buttonsContainer = document.createElement("div");
+buttonsContainer.style.display = "grid";
+buttonsContainer.style.gridTemplateColumns = "repeat(4, 1fr)";
+buttonsContainer.style.gap = "10px";
+calculator.appendChild(buttonsContainer);
+
+// Function to evaluate the expression
+let expression = "";
+
+function handleButtonClick(value) {
+  if (value === "=") {
+    try {
+      expression = eval(expression).toString(); 
+    } catch {
+      expression = "Error"; 
+    }
+  } else if (value === "C") {
+    expression = ""; 
+  } else {
+    expression += value;
+  }
+  display.value = expression; 
+}
+
+// Create and append buttons
+buttons.forEach((btnValue) => {
+  const button = document.createElement("button");
+  button.textContent = btnValue;
+  button.style.padding = "15px";
+  button.style.fontSize = "20px";
+  button.style.borderRadius = "5px";
+  button.style.border = "1px solid #333";
+  button.style.cursor = "pointer";
+  button.addEventListener("click", () => handleButtonClick(btnValue));
+  buttonsContainer.appendChild(button);
+});
+
+// Add a clear button
+const clearButton = document.createElement("button");
+clearButton.textContent = "C";
+clearButton.style.padding = "15px";
+clearButton.style.fontSize = "20px";
+clearButton.style.gridColumn = "span 4";
+clearButton.style.borderRadius = "5px";
+clearButton.style.border = "1px solid #333";
+clearButton.style.cursor = "pointer";
+clearButton.style.marginTop = "10px";
+clearButton.addEventListener("click", () => handleButtonClick("C"));
+calculator.appendChild(clearButton);
+
+</script>
+
+</body>
+</html>
